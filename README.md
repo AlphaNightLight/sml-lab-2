@@ -3,6 +3,7 @@
 This document presents the strategy adopted to complete the second laboratory of the Scalable Machine Learning and Deep Learning course at KTH. In particular, we focused on improving the performance of the fine-tuned Llama-3.2-1B model by adopting a **model-centric approach** as required by Task 2.1(a). Although the data-centric perspective is equally valuable, we chose to work on hyperparameter optimization to better understand how different training configurations and LoRA settings influence model performance.
 
 Besides this main task, this README contains the following sections:
+
 * Checkpointing methodology
 * Model-centric improvement
 * Creative UI to provide value to stakeholders
@@ -14,7 +15,7 @@ To implement the checkpointing functionality, as required in Task 1, to restart 
 
 After that, before starting the training, our implementation checks if any checkpoint is present in the folder `/content/drive/MyDrive/ID2223_Lab2/checkpoints` of our personal drive; if it's the case, the training restarts from the latest checkpoint. Moreover, for safety and reliability purposes, we decided to save the last 2 checkpoints. Most relevant code for this part is reported below:
 
-```
+```python
 from google.colab import drive
 drive.mount('/content/drive')
 checkpoint_dir = "/content/drive/MyDrive/ID2223_Lab2/checkpoints"
@@ -98,7 +99,7 @@ The LoRA Rank (r) was increased from the baseline of **16** to a higher capacity
 
 By increasing the LoRA rank (r), the model gains greater capacity to capture the complexity present in the dataset, this, of course, requires more time in training.
 
-#### *Results of improvement *
+#### *Results of improvement*
 
 We measured the improvement considering the training time (per 1000 samples) and the training loss, obtaining the following:
 
@@ -145,6 +146,6 @@ The stakeholders can do much more than a simple thumb-up thumb-down selection, a
 
 This *GitHub* repository contains a copy of the Colab code we used for finetuning and a copy of the Gradio application for the model demo. To see the actual deployment, you are encouraged to follow these links:
 
-* *Hugging face* space to chat with the model: [https://huggingface.co/spaces/fedealex/chat](https://huggingface.co/spaces/fedealex/chat)
-* *Hugging face* model containing the final LLM: [https://huggingface.co/fedealex/llama-1B/tree/main](https://huggingface.co/fedealex/llama-1B/tree/main)
-* *Hugging face* dataset for the evaluation metrics: [https://huggingface.co/datasets/fedealex/flags/tree/main](https://huggingface.co/datasets/fedealex/flags/tree/main)
+* *Hugging Face* space to chat with the model: [https://huggingface.co/spaces/fedealex/chat](https://huggingface.co/spaces/fedealex/chat)
+* *Hugging Face* model containing the final LLM: [https://huggingface.co/fedealex/llama-1B/tree/main](https://huggingface.co/fedealex/llama-1B/tree/main)
+* *Hugging Face* dataset for the evaluation metrics: [https://huggingface.co/datasets/fedealex/flags/tree/main](https://huggingface.co/datasets/fedealex/flags/tree/main)
