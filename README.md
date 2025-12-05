@@ -14,6 +14,7 @@ To implement the checkpointing functionality, as required in Task 1, in order re
 
 After that the training, before starting, checks if any checkpoint is present in the folder /content/drive/MyDrive/ID2223_Lab2/checkpoints of our personal drive, if it's the case the training restarts from the latest checkpoint. Moreover, for safety and reliability purpose, we decided to save the last 2 checkpoints. Most relevant code for this part is reported below:
 
+```
 from google.colab import drive
 drive.mount('/content/drive')
 checkpoint_dir = "/content/drive/MyDrive/ID2223_Lab2/checkpoints"
@@ -32,7 +33,7 @@ trainer = SFTTrainer(
 import os
 import glob
 
-## Check if any checkpoints exist in the output directory
+# Check if any checkpoints exist in the output directory
 
 output_dir = trainer.args.output_dir
 checkpoints = list(glob.glob(os.path.join(output_dir, "checkpoint-*")))
@@ -43,6 +44,7 @@ if len(checkpoints) > 0:
 else:
     print("No checkpoints found. Starting new training.")
 trainer_stats = trainer.train()
+```
 
 # Model-centric improvement
 
@@ -129,18 +131,20 @@ The core of the demo have been created with *Gradio*'s `ChatInterface` library, 
 
 The project specification required a creative improvement to the basic UI to deliver more value to the stakeholders. Our grup decided to embed a powerful flagging collection that allows for future model evaluations and adaptations to user needs. *Gradio* usually embeds three ways for doing so:
 
-- Flagging Modes
-- Callback Functions
-- Local Storage
+* Flagging Modes
+* Callback Functions
+* Local Storage
 
-However, **None of them is available** when the application is deployed on *hugging face*. For this reason, we needed to implement our own code, that throw additional `Gradio Blocks` allows the the users to comment on model behaviours and push this precious information in a *hugging face* dataset.
+However, **none of them is available** when the application is deployed on *hugging face*. For this reason, we needed to implement our own code, that throw additional `Gradio Blocks` allows the the users to comment on model behaviours and push this precious information in a *hugging face* dataset.
 
 ## Extensive Feedback
 
-The stakeholders can do much more than a simple thumb-up thumb-down selcetion, as they have an entire range of motivation to select among. For this reason, in a real world scenario the *EVALS* dataset we have built would could be an important insight to capture future user needs and improvements, as well as a tool to ensure the social fairness of the model.
+The stakeholders can do much more than a simple thumb-up thumb-down selcetion, as they have an entire range of motivation to select among. For this reason, in a real world scenario the *EVALS* dataset we have built would be an important insight to capture future user needs and improvements, as well as a tool to ensure the social fairness of the model.
 
 # Useful Links
 
-- *hugging face* space to chat with the model: [https://huggingface.co/spaces/fedealex/chat](https://huggingface.co/spaces/fedealex/chat)
-- *hugging face* model containing the final LLM: [https://huggingface.co/fedealex/llama-1B/tree/main](https://huggingface.co/fedealex/llama-1B/tree/main)
-- *hugging face* dataset for the evaluation metrics: [https://huggingface.co/datasets/fedealex/flags/tree/main](https://huggingface.co/datasets/fedealex/flags/tree/main)
+This *GitHub* repository contains a copy of the colab code we used for finetuning and a copy of the gradio application for the model demo. To see the actual deployiment, you are encoradged to folllow these links:
+
+* *Hugging face* space to chat with the model: [https://huggingface.co/spaces/fedealex/chat](https://huggingface.co/spaces/fedealex/chat)
+* *Hugging face* model containing the final LLM: [https://huggingface.co/fedealex/llama-1B/tree/main](https://huggingface.co/fedealex/llama-1B/tree/main)
+* *Hugging face* dataset for the evaluation metrics: [https://huggingface.co/datasets/fedealex/flags/tree/main](https://huggingface.co/datasets/fedealex/flags/tree/main)
